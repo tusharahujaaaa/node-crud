@@ -103,7 +103,10 @@ app.delete("/items/:id", async (req, res) => {
       return res.status(404).json({ error: "Item not found" });
     }
 
-    await item.remove();
+      // await item.remove();  removed not supported by mongoose now
+      // await item.deleteOne();
+      await Item.findByIdAndDelete(id);
+      
     res.status(204).send(); // No content
   } catch (error) {
     res.status(500).json({ error: "Error deleting item" });
