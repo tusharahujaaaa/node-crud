@@ -87,20 +87,17 @@ app.get("/users", async (req, res) => {
 });
 
 app.delete("/users/:id", async (req, res) => {
-  const id = req.params;
-  
-  try {
-    console.log(id);
-    const item = await User.findById(id);
-    console.log(item);
-    
-    if (!item) {
-    console.log('lllllllllllll');
+  const { id } = req.params;
 
-      res.json("No user found");
+  try {
+    const item = await User.findById(id);
+
+    if (!item) {
+      return res.status(404).json({ error: "Item not found" });
     }
 
     await item.deleteOne();
+    res.status(204).send("deleted Successfully");
   } catch {
     res.status(500).json({ error: "Error deleting data" });
   }

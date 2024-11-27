@@ -3,7 +3,7 @@ const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 
 const app = express();
-const PORT = 3000;
+const PORT = 3001;
 
 // Middleware for parsing JSON
 app.use(bodyParser.json());
@@ -102,10 +102,11 @@ app.delete("/items/:id", async (req, res) => {
     if (!item) {
       return res.status(404).json({ error: "Item not found" });
     }
+console.log(item,id);
 
       // await item.remove();  removed not supported by mongoose now
       // await item.deleteOne();
-      await Item.findByIdAndDelete(id);
+      // await Item.findByIdAndDelete(id);
       
     res.status(204).send(); // No content
   } catch (error) {
